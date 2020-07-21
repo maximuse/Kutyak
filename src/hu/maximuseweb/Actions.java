@@ -3,6 +3,9 @@ package hu.maximuseweb;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 class Actions {
     private static ArrayList<DogName> dogNames;
@@ -108,5 +111,27 @@ class Actions {
         avg /= Actions.getDogs().size();
 
         return "6. feladat: Kutyák átlag életkora: " + String.format("%.2f", avg);
+    }
+
+    static String task7() {
+        int nameId = 1;
+        int breedId = 1;
+        int age = Actions.getDogs().get(0).getAge();
+
+        for (Dog dog : Actions.getDogs()) {
+            if (dog.getAge() > age) {
+                age = dog.getAge();
+                nameId = dog.getNameId() - 1;
+                breedId = dog.getBreedId() - 1;
+            }
+        }
+
+        return "7. feladat: Legidősebb kutya neve és fajtája: " + Actions.getDogNames().get(nameId).getName() + ", " + Actions.getDogBreeds().get(breedId).getName();
+    }
+
+    static void task8() {
+        TreeSet<String> breeds = new TreeSet<>();
+        Map<String, Integer> stat = new HashMap<>();
+        int counter;
     }
 }
