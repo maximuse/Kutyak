@@ -97,4 +97,16 @@ class Actions {
     static String task3() {
         return "3. feladat: Kutyanevek száma: " + Actions.getDogNames().size();
     }
+
+    static String task6() {
+        double avg = 0;
+
+        for (Dog dog : Actions.getDogs()) {
+            avg += dog.getAge();
+        }
+
+        avg /= Actions.getDogs().size();
+
+        return "6. feladat: Kutyák átlag életkora: " + String.format("%.2f", avg);
+    }
 }
