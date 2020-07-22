@@ -10,5 +10,6 @@ public class Main {
         System.out.println(Actions.task7());
         Actions.task8("2018.01.10");
         System.out.println(Actions.task9());
+        Actions.task10("nevstatisztika.txt");
     }
 }

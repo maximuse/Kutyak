@@ -1,5 +1,6 @@
 package hu.maximuseweb;
 
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -187,5 +188,46 @@ class Actions {
         String[] date = getSplittedDate(entry.getKey());
 
         return "9. feladat: Legjobban leterhelt nap: " + date[0] + ". " + date[1] + ". " + date[2] + ".: " + entry.getValue() + " kutya";
+    }
+
+    static void task10(String fileName) {
+        try {
+            RandomAccessFile raf = new RandomAccessFile(fileName, "rw");
+            TreeSet<Integer> nameIds = new TreeSet<>();
+            Map<String, Integer> stat = new HashMap<>();
+            int counter;
+
+            for (Dog dog : Actions.getDogs()) {
+                nameIds.add(dog.getNameId());
+            }
+
+            for (Integer nameId : nameIds) {
+                counter = 0;
+
+                for (Dog dog : Actions.getDogs()) {
+                    if (nameId == dog.getNameId()) {
+                        counter++;
+                    }
+                }
+
+                stat.put(Actions.getDogNames().get(nameId - 1).getName(), counter);
+            }
+
+            stat.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach((value) -> {
+                try {
+                    raf.writeBytes(value.getKey() + ": " + value.getValue() + "\r\n");
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+
+            raf.close();
+
+            System.out.println("10. feladat: " + fileName);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
