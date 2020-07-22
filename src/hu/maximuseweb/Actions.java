@@ -97,6 +97,10 @@ class Actions {
         }
     }
 
+    private static String[] getSplittedDate(String date) {
+        return date.split("\\.");
+    }
+
     static String task3() {
         return "3. feladat: Kutyanevek száma: " + Actions.getDogNames().size();
     }
@@ -156,5 +160,32 @@ class Actions {
 
         System.out.println("8. feladat: 2018. január 10.-én vizsgált kutya fajták:");
         stat.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach((key) -> System.out.println("\t" + key.getKey() + ": " + key.getValue() + " kutya"));
+    }
+
+    static String task9() {
+        TreeSet<String> dates = new TreeSet<>();
+        Map<String, Integer> stat = new HashMap<>();
+        int counter;
+
+        for (Dog dog : Actions.getDogs()) {
+            dates.add(dog.getLastMedicalExamination());
+        }
+
+        for (String date : dates) {
+            counter = 0;
+
+            for (Dog dog : Actions.getDogs()) {
+                if (dog.getLastMedicalExamination().equals(date)) {
+                    counter++;
+                }
+            }
+
+            stat.put(date, counter);
+        }
+
+        Map.Entry<String, Integer> entry = stat.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).iterator().next();
+        String[] date = getSplittedDate(entry.getKey());
+
+        return "9. feladat: Legjobban leterhelt nap: " + date[0] + ". " + date[1] + ". " + date[2] + ".: " + entry.getValue() + " kutya";
     }
 }
