@@ -216,7 +216,7 @@ class Actions {
 
             stat.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach((value) -> {
                 try {
-                    raf.writeBytes(value.getKey() + ": " + value.getValue() + "\r\n");
+                    raf.writeBytes(value.getKey() + ";" + value.getValue() + "\r\n");
                 }
                 catch (Exception e) {
                     System.out.println(e.getMessage());
