@@ -129,9 +129,32 @@ class Actions {
         return "7. feladat: Legidősebb kutya neve és fajtája: " + Actions.getDogNames().get(nameId).getName() + ", " + Actions.getDogBreeds().get(breedId).getName();
     }
 
-    static void task8() {
-        TreeSet<String> breeds = new TreeSet<>();
+    static void task8(String date) {
+        TreeSet<Integer> breeds = new TreeSet<>();
         Map<String, Integer> stat = new HashMap<>();
+        int breedId = 0;
         int counter;
+
+        for (Dog dog : Actions.getDogs()) {
+            if (dog.getLastMedicalExamination().equals(date)) {
+                breeds.add(dog.getBreedId());
+            }
+        }
+
+        for (Integer breed : breeds) {
+            counter = 0;
+
+            for (Dog dog : Actions.getDogs()) {
+                if (dog.getBreedId() == breed && dog.getLastMedicalExamination().equals(date)) {
+                    breedId = dog.getBreedId() - 1;
+                    counter++;
+                }
+            }
+
+            stat.put(Actions.getDogBreeds().get(breedId).getName(), counter);
+        }
+
+        System.out.println("8. feladat: 2018. január 10.-én vizsgált kutya fajták:");
+        stat.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach((key) -> System.out.println("\t" + key.getKey() + ": " + key.getValue() + " kutya"));
     }
 }

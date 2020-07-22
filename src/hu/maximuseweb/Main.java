@@ -8,6 +8,6 @@ public class Main {
         Actions.fileToList("Kutyak.csv");
         System.out.println(Actions.task6());
         System.out.println(Actions.task7());
-        Actions.task8();
+        Actions.task8("2018.01.10");
     }
 }
